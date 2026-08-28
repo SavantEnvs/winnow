@@ -1,0 +1,16 @@
+# Known-answer-test (KAT) oracle probe for the Mayhem integration. Standalone
+# crate under mayhem/ — the empty-ish [workspace] table keeps it OUT of the root
+# workspace's resolution (we never touch upstream's Cargo.toml/Cargo.lock).
+# It only CALLS the unmodified winnow library via a path dependency.
+[package]
+name = "winnow-kat"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[dependencies.winnow]
+path = "../.."
+
+# Keep this crate out of the root crate's workspace resolution.
+[workspace]
+members = ["."]

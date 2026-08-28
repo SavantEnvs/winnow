@@ -1,0 +1,15 @@
+# winnow in-process libFuzzer target (cargo-fuzz / libfuzzer-sys) — upstream's own
+# fuzz/fuzz_targets/fuzz_arithmetic.rs: feeds fuzz bytes as UTF-8 arithmetic
+# expressions through winnow's combinator stack (delimited/alt/repeat/fold/parse_to
+# over ascii::digit1/space0), with upstream's built-in recursion cap of 8192.
+project: savantenvs/winnow
+target: fuzz_arithmetic
+image: savantenvs/winnow:latest
+
+cmds:
+  - cmd: /mayhem/fuzz_arithmetic
+    libfuzzer: true
+
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/fuzz_arithmetic/testsuite
